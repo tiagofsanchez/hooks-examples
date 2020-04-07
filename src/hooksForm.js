@@ -1,6 +1,7 @@
 import React, { useState , useContext } from "react";
 import "./form.css";
 import { ThemeContext } from './context'
+import { addEmailHooksForm } from "./utils/airtableApi";
 
 const HooksFrom = () => {
   const [name, setName] = useState("");
@@ -14,9 +15,14 @@ const HooksFrom = () => {
     setEmail(e.target.value)
   }
   
+  const onSubmitHandler = e => { 
+    e.preventDefault();
+    addEmailHooksForm(name, email)
+  }
+
   return (
     <section style={theme.themeHooks}>
-      <form className="form">
+      <form className="form" onSubmit={onSubmitHandler}>
         <h1>Hooks form</h1>
         <input
           className="input"
@@ -30,7 +36,7 @@ const HooksFrom = () => {
           value={email}
           onChange={onChangeHandlerEmail}
         ></input>
-        <button>submit</button>
+        <button onSubmit={onSubmitHandler}>submit</button>
       </form>
     </section>
   );

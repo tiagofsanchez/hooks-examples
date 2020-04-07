@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./form.css";
 import { ThemeContext } from "./context";
+import { addEmailClassForm } from './utils/airtableApi';
 
 class ClassForm extends Component {
   state = {
@@ -20,6 +21,12 @@ class ClassForm extends Component {
     });
   };
 
+  onSubmitHandler =(e) => { 
+    e.preventDefault();
+    const { name , email } = this.state; 
+    addEmailClassForm(name, email)
+  }
+
   render() {
     const { name, email } = this.state;
 
@@ -27,7 +34,7 @@ class ClassForm extends Component {
       <ThemeContext.Consumer>
         {(theme) => (
           <section style={theme.themeClass}>
-            <form className="form">
+            <form className="form" onSubmit={this.onSubmitHandler}>
               <h1>Class form</h1>
               <input
                 className="input"
@@ -45,7 +52,7 @@ class ClassForm extends Component {
                 value={email}
                 onChange={this.onChangeHandlerEmail}
               ></input>
-              <button>submit</button>
+              <button  onSubmit={this.onSubmitHandler}>submit</button>
             </form>
           </section>
         )}
