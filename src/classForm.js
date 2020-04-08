@@ -1,12 +1,27 @@
 import React, { Component } from "react";
 import "./form.css";
 import { ThemeContext } from "./context";
-import { addEmailClassForm } from './utils/airtableApi';
+import { addEmailClassForm } from "./utils/airtableApi";
 
 class ClassForm extends Component {
   state = {
     name: "",
     email: "",
+    width: window.innerWidth,
+  };
+
+  componentDidMount() {
+    window.addEventListener("resize", this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+
+  handleResize = () => {
+    this.setState({
+      width: window.innerWidth,
+    });
   };
 
   onChangeHandlerName = (e) => {
@@ -21,14 +36,14 @@ class ClassForm extends Component {
     });
   };
 
-  onSubmitHandler =(e) => { 
+  onSubmitHandler = (e) => {
     e.preventDefault();
-    const { name , email } = this.state; 
-    addEmailClassForm(name, email)
-  }
+    const { name, email } = this.state;
+    addEmailClassForm(name, email);
+  };
 
   render() {
-    const { name, email } = this.state;
+    const { name, email, width } = this.state;
 
     return (
       <ThemeContext.Consumer>
@@ -52,7 +67,8 @@ class ClassForm extends Component {
                 value={email}
                 onChange={this.onChangeHandlerEmail}
               ></input>
-              <button  onSubmit={this.onSubmitHandler}>submit</button>
+              <button onSubmit={this.onSubmitHandler}>submit</button>
+              <p>{`my window width ${width}`}</p>
             </form>
           </section>
         )}
