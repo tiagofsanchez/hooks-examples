@@ -5,26 +5,14 @@ import { addEmailHooksForm } from "./utils/airtableApi";
 
 const HooksFrom = () => {
   const theme = useContext(ThemeContext);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const name = useFormInput("")
+  const email = useFormInput("")
+  const width = useWindowWidth()
 
-  const [width, setWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  });
-
-  const onChangeHandlerName = (e) => {
-    setName(e.target.value);
-  };
-  const onChangeHandlerEmail = (e) => {
-    setEmail(e.target.value);
-  };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    addEmailHooksForm(name, email);
+    addEmailHooksForm(name.value, email.value );
   };
 
   return (
@@ -34,14 +22,14 @@ const HooksFrom = () => {
         <input
           className="input"
           placeholder="name..."
-          value={name}
-          onChange={onChangeHandlerName}
+          type="text"
+         {...name}
         ></input>
         <input
           className="input"
           placeholder="email..."
-          value={email}
-          onChange={onChangeHandlerEmail}
+          type="email"
+         {...email}
         ></input>
         <button onSubmit={onSubmitHandler}>submit</button>
         <p>{`my window width ${width}`}</p>
@@ -51,3 +39,24 @@ const HooksFrom = () => {
 };
 
 export default HooksFrom;
+
+const useFormInput = (initialValue) => { 
+  const [value, setValue] = useState(initialValue);
+  const onChangeHandler = (e) => {
+    setValue(e.target.value);
+  };
+  return {
+    value, 
+    onChange: onChangeHandler
+  }
+}
+
+const useWindowWidth = () => { 
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  });
+  return width
+}

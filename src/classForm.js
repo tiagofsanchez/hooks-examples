@@ -24,17 +24,11 @@ class ClassForm extends Component {
     });
   };
 
-  onChangeHandlerName = (e) => {
+  onChangeHandler = (e) => { 
     this.setState({
-      name: e.target.value,
-    });
-  };
-
-  onChangeHandlerEmail = (e) => {
-    this.setState({
-      email: e.target.value,
-    });
-  };
+      [e.target.name]: e.target.value
+    })
+  }
 
   onSubmitHandler = (e) => {
     e.preventDefault();
@@ -57,7 +51,7 @@ class ClassForm extends Component {
                 type="text"
                 name="name"
                 value={name}
-                onChange={this.onChangeHandlerName}
+                onChange={this.onChangeHandler}
               ></input>
               <input
                 className="input"
@@ -65,7 +59,7 @@ class ClassForm extends Component {
                 type="email"
                 name="email"
                 value={email}
-                onChange={this.onChangeHandlerEmail}
+                onChange={this.onChangeHandler}
               ></input>
               <button onSubmit={this.onSubmitHandler}>submit</button>
               <p>{`my window width ${width}`}</p>

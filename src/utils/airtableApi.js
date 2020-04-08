@@ -18,7 +18,6 @@ export const addEmailClassForm = (name, email) => {
       },
     ],
   };
-  console.log(app_id);
   
 
   let url = "https://api.airtable.com/v0/" + app_id + "/" + classView;
