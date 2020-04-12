@@ -15,5 +15,8 @@ To install all the dependencies and get you going
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### set you your .env 
+(note - I had previously committed my key :( but now is changed)
+
+REACT_APP_AIRTABLE_API_KEY = your_airtable_api_key
+REACT_APP_AIRTABLE_BASE_ID = your_airtable_base_id
